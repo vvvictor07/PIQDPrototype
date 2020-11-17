@@ -1,5 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Assets.Scripts.Common.Constants;
+using Assets.Scripts.Common.PlayerCommon;
+using Assets.Scripts.Common.Services;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -9,6 +10,7 @@ public class Player : MonoBehaviour
     public float regenCooldown = 5f;
 
     public PlayerStats playerStats;
+    public PlayerAppearance appearance;
 
     public PlayerProfession profession;
     public PlayerProfession Profession
@@ -22,33 +24,38 @@ public class Player : MonoBehaviour
             ChangeProfession(value);
         }
     }
+
+    public Renderer characterRenderer;
+
+    void Start()
+    {
+        //LoadPlayerData();
+    }
+
     public void LevelUp()
     {
-        playerStats.baseStatPoints += 3;
+        playerStats.availableStatPoints += 3;
 
-        for(int i = 0; i < playerStats.baseStats.Length; i++)
+        foreach (var stat in playerStats.characteristics)
         {
-           playerStats.baseStats[i].levelUpStat += 1;
+            stat.levelUpStat += 1;
         }
     }
 
     public void ChangeProfession(PlayerProfession cProfession)
     {
-        this.profession = cProfession;
+        profession = cProfession;
         SetUpProfression();
     }
 
     public void SetUpProfression()
     {
-        for(int i = 0; i < playerStats.baseStats.Length; i++)
+        foreach (var stat in playerStats.characteristics)
         {
-            if (i < profession.defaultStats.Length)
-            {
-                playerStats.baseStats[i].defaultStat = profession.defaultStats[i].defaultStat;
-            }
-            
+            stat.defaultStat += profession.defaultStats[stat.statType];
         }
     }
+
     private void Update()
     {
         if (!disableRegen) 
@@ -76,6 +83,22 @@ public class Player : MonoBehaviour
     public void Heal(float health)
     {
         playerStats.CurrentHealth += health;
+    }
+
+    private void LoadPlayerData()
+    {
+        var data = SaveSystem.LoadPlayer();
+        appearance = data.appearance;
+        playerStats = data.stats;
+
+        foreach (var part in appearance.parts)
+        {
+            var path = $"{ResourcesLocations.CharacterTextures}{part.textureName}";
+            var texture = (Texture2D)Resources.Load(path);
+            Material[] mats = characterRenderer.materials;
+            mats[(int)part.partType].mainTexture = texture;
+            characterRenderer.materials = mats;
+        }
     }
 
     //temp level up button & deal damage button
