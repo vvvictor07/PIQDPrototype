@@ -1,14 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Assets.Scripts.Common.Constants;
+using Assets.Scripts.Common.PlayerCommon;
+using Assets.Scripts.Common.Services;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private bool disableRegen;
-    private float disableRegenTime;
-    public float regenCooldown = 5f;
+    [SerializeField] private float healthRegenCooldown = 5f;
+    private bool disableHealthRegen;
+    private float disableHealthRegenTime;
+
+    [SerializeField] private float staminaRegenCooldown = 3f;
+    public bool disableStaminaUsage;
+    private float disableStaminaUsageTime;
 
     public PlayerStats playerStats;
+    public PlayerAppearance appearance;
 
     public PlayerProfession profession;
     public PlayerProfession Profession
@@ -22,60 +28,120 @@ public class Player : MonoBehaviour
             ChangeProfession(value);
         }
     }
+
+    public Renderer characterRenderer;
+
+    void Start()
+    {
+        LoadPlayerData();
+    }
+
     public void LevelUp()
     {
-        playerStats.baseStatPoints += 3;
+        playerStats.availableStatPoints += 3;
 
-        for(int i = 0; i < playerStats.baseStats.Length; i++)
+        foreach (var stat in playerStats.baseStats)
         {
-           playerStats.baseStats[i].levelUpStat += 1;
+            stat.levelUpStat += 1;
         }
+
+        playerStats.UpdateStats();
     }
 
     public void ChangeProfession(PlayerProfession cProfession)
     {
-        this.profession = cProfession;
+        profession = cProfession;
         SetUpProfression();
     }
 
     public void SetUpProfression()
     {
-        for(int i = 0; i < playerStats.baseStats.Length; i++)
+        foreach (var stat in playerStats.baseStats)
         {
-            if (i < profession.defaultStats.Length)
-            {
-                playerStats.baseStats[i].defaultStat = profession.defaultStats[i].defaultStat;
-            }
-            
-        }
-    }
-    private void Update()
-    {
-        if (!disableRegen) 
-        {
-            if(playerStats.CurrentHealth < playerStats.maxHealth)
-            {
-                playerStats.CurrentHealth = playerStats.regenHealth * Time.deltaTime;
-            }           
-        }
-        else
-        {
-            if (Time.time > disableRegenTime + regenCooldown)
-            {
-                disableRegen = false;
-            }
+            stat.defaultStat = profession.defaultStats[stat.statType];
         }
 
+        playerStats.UpdateStats();
     }
+
+    private void Update()
+    {
+        ProcessHealthRegen();
+        ProcessStaminaRegen();
+    }
+
     public void DealDamage(float damage)
     {
         playerStats.CurrentHealth -= damage;
-        disableRegen = true;
-        disableRegenTime = Time.time;
+        disableHealthRegen = true;
+        disableHealthRegenTime = Time.time;
     }
+
     public void Heal(float health)
     {
         playerStats.CurrentHealth += health;
+    }
+
+    private void ProcessHealthRegen()
+    {
+        if (!disableHealthRegen)
+        {
+            if (playerStats.CurrentHealth < playerStats.maxHealth.value)
+            {
+                playerStats.CurrentHealth += playerStats.regenHealth.value * Time.deltaTime;
+            }
+        }
+        else
+        {
+            if (Time.time > disableHealthRegenTime + healthRegenCooldown)
+            {
+                disableHealthRegen = false;
+            }
+        }
+    }
+
+    private void ProcessStaminaRegen()
+    {
+        if (playerStats.CurrentStamina < 1)
+        {
+            disableStaminaUsage = true;
+            disableStaminaUsageTime = Time.time;
+            playerStats.CurrentStamina = 1;
+        }
+
+        if (playerStats.CurrentStamina < playerStats.maxStamina.value)
+        {
+            playerStats.CurrentStamina += playerStats.staminaRegen.value * Time.deltaTime;
+        }
+
+        if (disableStaminaUsage)
+        {
+            if (Time.time > disableStaminaUsageTime + staminaRegenCooldown)
+            {
+                disableStaminaUsage = false;
+            }
+        }
+    }
+
+    private void LoadPlayerData()
+    {
+        var data = SaveSystem.LoadPlayer();
+
+        appearance = data.appearance;
+        playerStats = data.stats;
+
+        playerStats.healthHearts = FindObjectOfType<QuaterHearts>();
+
+        Profession = PlayerProfession.professions[data.playerClass];
+
+        foreach (var part in appearance.parts)
+        {
+            var path = $"{ResourcesLocations.CharacterTextures}{part.textureName}";
+            var texture = (Texture2D)Resources.Load(path);
+            Material[] mats = characterRenderer.materials;
+            mats[(int)part.partType].mainTexture = texture;
+            characterRenderer.materials = mats;
+        }
     }
 
     //temp level up button & deal damage button
@@ -90,5 +156,7 @@ public class Player : MonoBehaviour
         {
             DealDamage(25f);
         }
+
+        GUI.TextArea(new Rect(10, 40, 120, 20), $"{playerStats.CurrentStamina}/{playerStats.maxStamina.value}");
     }
 }

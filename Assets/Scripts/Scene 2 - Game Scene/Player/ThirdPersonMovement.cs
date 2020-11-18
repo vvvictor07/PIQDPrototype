@@ -3,17 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 public class ThirdPersonMovement : MonoBehaviour
 {
-    [SerializeField] public PlayerStats player;
+    [SerializeField] private Player player;
     [SerializeField] private CharacterController controller;
     [Header("Camera settings")]
-    [SerializeField] public Transform cam; //-------------
-    [SerializeField] public float turnSmoothTime = 0.1f;
-    [SerializeField] public float gravity = -9.81f;
+    [SerializeField] private Transform cam; //-------------
+    [SerializeField] private float turnSmoothTime = 0.1f;
+    [SerializeField] private float gravity = -9.81f;
+    [SerializeField] private float staminaConsumption = 35f;
     float turnSmoothVelocity;
 
     private bool isGrounded;
 
     [SerializeField] private Vector3 playerVelocity;
+
+    private void Start()
+    {
+        player = GetComponent<Player>();
+    }
 
     private void FixedUpdate()
     {
@@ -38,14 +44,15 @@ public class ThirdPersonMovement : MonoBehaviour
 
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;//-------------
 
-            float movementSpeed = player.speed;
-            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+            float movementSpeed = player.playerStats.speed.value;
+            if (player.disableStaminaUsage == false && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
             {
-                movementSpeed = player.sprintSpeed;
+                player.playerStats.CurrentStamina -= staminaConsumption * Time.deltaTime;
+                movementSpeed = player.playerStats.sprintSpeed.value;
             }
-            else
+            else if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
             {
-                movementSpeed = player.crouchSpeed;
+                movementSpeed = player.playerStats.crouchSpeed.value;
             }
 
             controller.Move(moveDir * movementSpeed * Time.deltaTime);
@@ -59,7 +66,7 @@ public class ThirdPersonMovement : MonoBehaviour
         }
         if (Input.GetButtonDown("Jump") && controller.isGrounded)
         {
-            playerVelocity.y += Mathf.Sqrt(player.jumpHeight * -3.0f * gravity);
+            playerVelocity.y += Mathf.Sqrt(player.playerStats.jumpHeight.value * -3.0f * gravity);
         }
 
         playerVelocity.y += gravity * Time.deltaTime;
