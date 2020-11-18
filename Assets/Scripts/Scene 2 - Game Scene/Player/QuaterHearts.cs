@@ -15,7 +15,6 @@ public class QuaterHearts : MonoBehaviour
     // Update is called once per frame
     public void UpdateHearts(float curHealth, float maxHealth)
     {
-        Debug.Log(curHealth + "/" + maxHealth);
         currentHealth = curHealth;
         maximumHealth = maxHealth;
 
