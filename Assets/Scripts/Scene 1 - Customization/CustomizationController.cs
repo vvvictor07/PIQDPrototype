@@ -33,7 +33,7 @@ public class CustomizationController : MonoBehaviour
 
     private readonly PlayerStats statsData = new PlayerStats();
     private string playerName;
-    private PlayerClasses selectedClass = PlayerClasses.Barbarian;
+    private PlayerProfessionType selectedClass;
 
     public static CustomizationController instance;
 
@@ -49,6 +49,7 @@ public class CustomizationController : MonoBehaviour
     {
         LoadTextures();
         UpdateStatsVisuals();
+        UpdateClass(0);
     }
 
     public void SelectPreviousAppearancePart(int partIndex)
@@ -87,8 +88,16 @@ public class CustomizationController : MonoBehaviour
 
     public void UpdateClass(int classIndex)
     {
-        var playerClass = (PlayerClasses)classIndex;
+        var playerClass = (PlayerProfessionType)classIndex;
         selectedClass = playerClass;
+
+        var classData = PlayerProfession.professions[playerClass];
+        foreach (var stat in statsData.characteristics)
+        {
+            stat.defaultStat = classData.defaultStats[stat.statType];
+        }
+
+        UpdateStatsVisuals();
     }
 
     public void RandomizeAppearance()
@@ -127,6 +136,7 @@ public class CustomizationController : MonoBehaviour
             var randomStat = statsData.characteristics[random];
             statsData.SetStats(randomStat.statType, 1);
         }
+
         UpdateStatsVisuals();
     }
 

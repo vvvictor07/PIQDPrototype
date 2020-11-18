@@ -11,7 +11,7 @@ namespace Assets.Scripts.Common.PlayerCommon
 
         public string name;
 
-        public PlayerClasses playerClass;
+        public PlayerProfessionType playerClass;
 
         public PlayerData()
         {
