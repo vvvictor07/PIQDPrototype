@@ -6,9 +6,10 @@ public class ThirdPersonMovement : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private CharacterController controller;
     [Header("Camera settings")]
-    [SerializeField] public Transform cam; //-------------
-    [SerializeField] public float turnSmoothTime = 0.1f;
-    [SerializeField] public float gravity = -9.81f;
+    [SerializeField] private Transform cam; //-------------
+    [SerializeField] private float turnSmoothTime = 0.1f;
+    [SerializeField] private float gravity = -9.81f;
+    [SerializeField] private float staminaConsumption = 35f;
     float turnSmoothVelocity;
 
     private bool isGrounded;
@@ -44,8 +45,9 @@ public class ThirdPersonMovement : MonoBehaviour
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;//-------------
 
             float movementSpeed = player.playerStats.speed.value;
-            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+            if (player.disableStaminaUsage == false && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)))
             {
+                player.playerStats.CurrentStamina -= staminaConsumption * Time.deltaTime;
                 movementSpeed = player.playerStats.sprintSpeed.value;
             }
             else if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))

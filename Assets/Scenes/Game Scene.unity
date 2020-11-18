@@ -10829,6 +10829,11 @@ PrefabInstance:
       propertyPath: playerStats.healthHearts
       value: 
       objectReference: {fileID: 1155232304}
+    - target: {fileID: 7734136809560240433, guid: 1806e3afe772cec48852263fae666e3c,
+        type: 3}
+      propertyPath: staminaRegenCooldown
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7734136809560240434, guid: 1806e3afe772cec48852263fae666e3c,
         type: 3}
       propertyPath: m_LocalPosition.x

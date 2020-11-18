@@ -12,6 +12,7 @@ namespace Assets.Scripts.Common.Services
             var json = JsonUtility.ToJson(data, true);
             File.WriteAllText(path, json);
         }
+
         public static PlayerData LoadPlayer()
         {
             string path = Application.dataPath + "/player.sav";

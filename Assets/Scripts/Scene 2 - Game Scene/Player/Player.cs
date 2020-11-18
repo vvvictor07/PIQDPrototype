@@ -5,9 +5,13 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private bool disableRegen;
-    private float disableRegenTime;
-    public float regenCooldown = 5f;
+    [SerializeField] private float healthRegenCooldown = 5f;
+    private bool disableHealthRegen;
+    private float disableHealthRegenTime;
+
+    [SerializeField] private float staminaRegenCooldown = 3f;
+    public bool disableStaminaUsage;
+    private float disableStaminaUsageTime;
 
     public PlayerStats playerStats;
     public PlayerAppearance appearance;
@@ -62,32 +66,61 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (!disableRegen) 
-        {
-            if(playerStats.CurrentHealth < playerStats.maxHealth.value)
-            {
-                playerStats.CurrentHealth += playerStats.regenHealth.value * Time.deltaTime;
-            }           
-        }
-        else
-        {
-            if (Time.time > disableRegenTime + regenCooldown)
-            {
-                disableRegen = false;
-            }
-        }
-
+        ProcessHealthRegen();
+        ProcessStaminaRegen();
     }
+
     public void DealDamage(float damage)
     {
         playerStats.CurrentHealth -= damage;
-        disableRegen = true;
-        disableRegenTime = Time.time;
+        disableHealthRegen = true;
+        disableHealthRegenTime = Time.time;
     }
 
     public void Heal(float health)
     {
         playerStats.CurrentHealth += health;
+    }
+
+    private void ProcessHealthRegen()
+    {
+        if (!disableHealthRegen)
+        {
+            if (playerStats.CurrentHealth < playerStats.maxHealth.value)
+            {
+                playerStats.CurrentHealth += playerStats.regenHealth.value * Time.deltaTime;
+            }
+        }
+        else
+        {
+            if (Time.time > disableHealthRegenTime + healthRegenCooldown)
+            {
+                disableHealthRegen = false;
+            }
+        }
+    }
+
+    private void ProcessStaminaRegen()
+    {
+        if (playerStats.CurrentStamina < 1)
+        {
+            disableStaminaUsage = true;
+            disableStaminaUsageTime = Time.time;
+            playerStats.CurrentStamina = 1;
+        }
+
+        if (playerStats.CurrentStamina < playerStats.maxStamina.value)
+        {
+            playerStats.CurrentStamina += playerStats.staminaRegen.value * Time.deltaTime;
+        }
+
+        if (disableStaminaUsage)
+        {
+            if (Time.time > disableStaminaUsageTime + staminaRegenCooldown)
+            {
+                disableStaminaUsage = false;
+            }
+        }
     }
 
     private void LoadPlayerData()
@@ -123,5 +156,7 @@ public class Player : MonoBehaviour
         {
             DealDamage(25f);
         }
+
+        GUI.TextArea(new Rect(10, 40, 120, 20), $"{playerStats.CurrentStamina}/{playerStats.maxStamina.value}");
     }
 }

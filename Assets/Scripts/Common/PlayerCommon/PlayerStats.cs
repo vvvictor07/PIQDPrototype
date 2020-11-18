@@ -50,11 +50,23 @@ public class PlayerStats
     [SerializeField] public int level;
 
     [SerializeField] public float currentMana = 100;
-    [SerializeField] public float currentStamina = 100;
+
+    [SerializeField] private float currentStamina = 100;
+    public float CurrentStamina
+    {
+        get
+        {
+            return currentStamina;
+        }
+        set
+        {
+            currentStamina = Mathf.Clamp(value, 0, maxStamina.value);
+        }
+    }
 
     public QuaterHearts healthHearts;
 
-    private float currentHealth = 100; 
+    [SerializeField] private float currentHealth = 100; 
     public float CurrentHealth 
     {
         get
