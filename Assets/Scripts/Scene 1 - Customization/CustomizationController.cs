@@ -92,7 +92,7 @@ public class CustomizationController : MonoBehaviour
         selectedClass = playerClass;
 
         var classData = PlayerProfession.professions[playerClass];
-        foreach (var stat in statsData.characteristics)
+        foreach (var stat in statsData.baseStats)
         {
             stat.defaultStat = classData.defaultStats[stat.statType];
         }
@@ -118,9 +118,9 @@ public class CustomizationController : MonoBehaviour
         }
     }
 
-    public void SetStat(PlayerStatType statType, int value)
+    public void SetStat(PlayerBaseStatsType statType, int value)
     {
-        statsData.SetStats(statType, value);
+        statsData.SetBaseStat(statType, value);
         UpdateStatsVisuals();
     }
 
@@ -132,9 +132,9 @@ public class CustomizationController : MonoBehaviour
 
         for (var i = 0; i < pointsTotal; i++)
         {
-            var random = Random.Range(0, statsData.characteristics.Length);
-            var randomStat = statsData.characteristics[random];
-            statsData.SetStats(randomStat.statType, 1);
+            var random = Random.Range(0, statsData.baseStats.Length);
+            var randomStat = statsData.baseStats[random];
+            statsData.SetBaseStat(randomStat.statType, 1);
         }
 
         UpdateStatsVisuals();
@@ -142,7 +142,7 @@ public class CustomizationController : MonoBehaviour
 
     public void ResetStats()
     {
-        foreach (var stat in statsData.characteristics)
+        foreach (var stat in statsData.baseStats)
         {
             statsData.availableStatPoints += stat.additionalStat;
             stat.additionalStat = 0;
@@ -152,6 +152,8 @@ public class CustomizationController : MonoBehaviour
 
     public void Save()
     {
+        statsData.UpdateStats();
+
         var appearanceData = new PlayerAppearance()
         {
             parts = selectedParts

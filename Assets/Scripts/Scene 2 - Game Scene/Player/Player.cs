@@ -36,10 +36,12 @@ public class Player : MonoBehaviour
     {
         playerStats.availableStatPoints += 3;
 
-        foreach (var stat in playerStats.characteristics)
+        foreach (var stat in playerStats.baseStats)
         {
             stat.levelUpStat += 1;
         }
+
+        playerStats.UpdateStats();
     }
 
     public void ChangeProfession(PlayerProfession cProfession)
@@ -50,19 +52,21 @@ public class Player : MonoBehaviour
 
     public void SetUpProfression()
     {
-        foreach (var stat in playerStats.characteristics)
+        foreach (var stat in playerStats.baseStats)
         {
-            stat.defaultStat += profession.defaultStats[stat.statType];
+            stat.defaultStat = profession.defaultStats[stat.statType];
         }
+
+        playerStats.UpdateStats();
     }
 
     private void Update()
     {
         if (!disableRegen) 
         {
-            if(playerStats.CurrentHealth < playerStats.maxHealth)
+            if(playerStats.CurrentHealth < playerStats.maxHealth.value)
             {
-                playerStats.CurrentHealth = playerStats.regenHealth * Time.deltaTime;
+                playerStats.CurrentHealth += playerStats.regenHealth.value * Time.deltaTime;
             }           
         }
         else
@@ -80,6 +84,7 @@ public class Player : MonoBehaviour
         disableRegen = true;
         disableRegenTime = Time.time;
     }
+
     public void Heal(float health)
     {
         playerStats.CurrentHealth += health;
@@ -88,8 +93,13 @@ public class Player : MonoBehaviour
     private void LoadPlayerData()
     {
         var data = SaveSystem.LoadPlayer();
+
         appearance = data.appearance;
         playerStats = data.stats;
+
+        playerStats.healthHearts = FindObjectOfType<QuaterHearts>();
+
+        Profession = PlayerProfession.professions[data.playerClass];
 
         foreach (var part in appearance.parts)
         {

@@ -23,14 +23,14 @@ namespace Assets.Scripts.Common.PlayerCommon
         public string abilityName = "Ability";
         public string abilityDescription = "Does an action";
 
-        public Dictionary<PlayerStatType, int> defaultStats = new Dictionary<PlayerStatType, int>()
+        public Dictionary<PlayerBaseStatsType, int> defaultStats = new Dictionary<PlayerBaseStatsType, int>()
         {
-            { PlayerStatType.Strength, 0 },
-            { PlayerStatType.Dexterity, 0 },
-            { PlayerStatType.Constitution, 0 },
-            { PlayerStatType.Intelegent, 0 },
-            { PlayerStatType.Wisdom, 0 },
-            { PlayerStatType.Charisma, 0 },
+            { PlayerBaseStatsType.Strength, 0 },
+            { PlayerBaseStatsType.Dexterity, 0 },
+            { PlayerBaseStatsType.Constitution, 0 },
+            { PlayerBaseStatsType.Intelegent, 0 },
+            { PlayerBaseStatsType.Wisdom, 0 },
+            { PlayerBaseStatsType.Charisma, 0 },
         };
 
         public static Dictionary<PlayerProfessionType, PlayerProfession> professions = new Dictionary<PlayerProfessionType, PlayerProfession>()
@@ -38,112 +38,112 @@ namespace Assets.Scripts.Common.PlayerCommon
             { PlayerProfessionType.Barbarian, new PlayerProfession
                 {
                     professionName = "Barbarian",
-                    defaultStats = new Dictionary<PlayerStatType, int>
+                    defaultStats = new Dictionary<PlayerBaseStatsType, int>
                     {
-                        { PlayerStatType.Strength, 3 },
-                        { PlayerStatType.Dexterity, 2 },
-                        { PlayerStatType.Constitution, 2 },
-                        { PlayerStatType.Intelegent, 1 },
-                        { PlayerStatType.Wisdom, 1 },
-                        { PlayerStatType.Charisma, 1 },
+                        { PlayerBaseStatsType.Strength, 3 },
+                        { PlayerBaseStatsType.Dexterity, 2 },
+                        { PlayerBaseStatsType.Constitution, 2 },
+                        { PlayerBaseStatsType.Intelegent, 1 },
+                        { PlayerBaseStatsType.Wisdom, 1 },
+                        { PlayerBaseStatsType.Charisma, 1 },
                     }
                 }
             },
             { PlayerProfessionType.Bard, new PlayerProfession
                 {
                     professionName = "Bard",
-                    defaultStats = new Dictionary<PlayerStatType, int>
+                    defaultStats = new Dictionary<PlayerBaseStatsType, int>
                     {
-                        { PlayerStatType.Strength, 1 },
-                        { PlayerStatType.Dexterity, 1 },
-                        { PlayerStatType.Constitution, 1 },
-                        { PlayerStatType.Intelegent, 2 },
-                        { PlayerStatType.Wisdom, 2 },
-                        { PlayerStatType.Charisma, 3 },
+                        { PlayerBaseStatsType.Strength, 1 },
+                        { PlayerBaseStatsType.Dexterity, 1 },
+                        { PlayerBaseStatsType.Constitution, 1 },
+                        { PlayerBaseStatsType.Intelegent, 2 },
+                        { PlayerBaseStatsType.Wisdom, 2 },
+                        { PlayerBaseStatsType.Charisma, 3 },
                     }
                 }
             },
             { PlayerProfessionType.Druid, new PlayerProfession
                 {
                     professionName = "Druid",
-                    defaultStats = new Dictionary<PlayerStatType, int>
+                    defaultStats = new Dictionary<PlayerBaseStatsType, int>
                     {
-                        { PlayerStatType.Strength, 1 },
-                        { PlayerStatType.Dexterity, 2 },
-                        { PlayerStatType.Constitution, 2 },
-                        { PlayerStatType.Intelegent, 2 },
-                        { PlayerStatType.Wisdom, 2 },
-                        { PlayerStatType.Charisma, 1 },
+                        { PlayerBaseStatsType.Strength, 1 },
+                        { PlayerBaseStatsType.Dexterity, 2 },
+                        { PlayerBaseStatsType.Constitution, 2 },
+                        { PlayerBaseStatsType.Intelegent, 2 },
+                        { PlayerBaseStatsType.Wisdom, 2 },
+                        { PlayerBaseStatsType.Charisma, 1 },
                     }
                 }
             },
             { PlayerProfessionType.Monk, new PlayerProfession
                 {
                     professionName = "Monk",
-                    defaultStats = new Dictionary<PlayerStatType, int>
+                    defaultStats = new Dictionary<PlayerBaseStatsType, int>
                     {
-                        { PlayerStatType.Strength, 1 },
-                        { PlayerStatType.Dexterity, 3 },
-                        { PlayerStatType.Constitution, 2 },
-                        { PlayerStatType.Intelegent, 1 },
-                        { PlayerStatType.Wisdom, 2 },
-                        { PlayerStatType.Charisma, 1 },
+                        { PlayerBaseStatsType.Strength, 1 },
+                        { PlayerBaseStatsType.Dexterity, 3 },
+                        { PlayerBaseStatsType.Constitution, 2 },
+                        { PlayerBaseStatsType.Intelegent, 1 },
+                        { PlayerBaseStatsType.Wisdom, 2 },
+                        { PlayerBaseStatsType.Charisma, 1 },
                     }
                 }
             },
             { PlayerProfessionType.Paladin, new PlayerProfession
                 {
                     professionName = "Paladin",
-                    defaultStats = new Dictionary<PlayerStatType, int>
+                    defaultStats = new Dictionary<PlayerBaseStatsType, int>
                     {
-                        { PlayerStatType.Strength, 2 },
-                        { PlayerStatType.Dexterity, 1 },
-                        { PlayerStatType.Constitution, 3 },
-                        { PlayerStatType.Intelegent, 1 },
-                        { PlayerStatType.Wisdom, 2 },
-                        { PlayerStatType.Charisma, 1 },
+                        { PlayerBaseStatsType.Strength, 2 },
+                        { PlayerBaseStatsType.Dexterity, 1 },
+                        { PlayerBaseStatsType.Constitution, 3 },
+                        { PlayerBaseStatsType.Intelegent, 1 },
+                        { PlayerBaseStatsType.Wisdom, 2 },
+                        { PlayerBaseStatsType.Charisma, 1 },
                     }
                 }
             },
             { PlayerProfessionType.Ranger, new PlayerProfession
                 {
                     professionName = "Ranger",
-                    defaultStats = new Dictionary<PlayerStatType, int>
+                    defaultStats = new Dictionary<PlayerBaseStatsType, int>
                     {
-                        { PlayerStatType.Strength, 1 },
-                        { PlayerStatType.Dexterity, 4 },
-                        { PlayerStatType.Constitution, 1 },
-                        { PlayerStatType.Intelegent, 2 },
-                        { PlayerStatType.Wisdom, 1 },
-                        { PlayerStatType.Charisma, 1 },
+                        { PlayerBaseStatsType.Strength, 1 },
+                        { PlayerBaseStatsType.Dexterity, 4 },
+                        { PlayerBaseStatsType.Constitution, 1 },
+                        { PlayerBaseStatsType.Intelegent, 2 },
+                        { PlayerBaseStatsType.Wisdom, 1 },
+                        { PlayerBaseStatsType.Charisma, 1 },
                     }
                 }
             },
             { PlayerProfessionType.Sorcerer, new PlayerProfession
                 {
                     professionName = "Sorcerer",
-                    defaultStats = new Dictionary<PlayerStatType, int>
+                    defaultStats = new Dictionary<PlayerBaseStatsType, int>
                     {
-                        { PlayerStatType.Strength, 1 },
-                        { PlayerStatType.Dexterity, 1 },
-                        { PlayerStatType.Constitution, 1 },
-                        { PlayerStatType.Intelegent, 3 },
-                        { PlayerStatType.Wisdom, 2 },
-                        { PlayerStatType.Charisma, 2 },
+                        { PlayerBaseStatsType.Strength, 1 },
+                        { PlayerBaseStatsType.Dexterity, 1 },
+                        { PlayerBaseStatsType.Constitution, 1 },
+                        { PlayerBaseStatsType.Intelegent, 3 },
+                        { PlayerBaseStatsType.Wisdom, 2 },
+                        { PlayerBaseStatsType.Charisma, 2 },
                     }
                 }
             },
             { PlayerProfessionType.Warlock, new PlayerProfession
                 {
                     professionName = "Warlock",
-                    defaultStats = new Dictionary<PlayerStatType, int>
+                    defaultStats = new Dictionary<PlayerBaseStatsType, int>
                     {
-                        { PlayerStatType.Strength, 1 },
-                        { PlayerStatType.Dexterity, 1 },
-                        { PlayerStatType.Constitution, 1 },
-                        { PlayerStatType.Intelegent, 4 },
-                        { PlayerStatType.Wisdom, 2 },
-                        { PlayerStatType.Charisma, 1 },
+                        { PlayerBaseStatsType.Strength, 1 },
+                        { PlayerBaseStatsType.Dexterity, 1 },
+                        { PlayerBaseStatsType.Constitution, 1 },
+                        { PlayerBaseStatsType.Intelegent, 4 },
+                        { PlayerBaseStatsType.Wisdom, 2 },
+                        { PlayerBaseStatsType.Charisma, 1 },
                     }
                 }
             },

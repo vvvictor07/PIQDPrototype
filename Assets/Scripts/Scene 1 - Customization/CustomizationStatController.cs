@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class CustomizationStatController : MonoBehaviour
 {
-    public PlayerStatType statType;
+    public PlayerBaseStatsType statType;
     public string statName;
     public Text textElement;
 
@@ -25,7 +25,7 @@ public class CustomizationStatController : MonoBehaviour
 
     private void UpdateValue(PlayerStats stats)
     {
-        var value = stats.GetStats(statType).finalStat;
+        var value = stats.GetBaseStat(statType).finalStat;
         textElement.text = $"{statName}: {value}";
     }
 }

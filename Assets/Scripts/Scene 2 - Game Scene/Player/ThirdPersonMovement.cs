@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public class ThirdPersonMovement : MonoBehaviour
 {
-    [SerializeField] public PlayerStats player;
+    [SerializeField] private Player player;
     [SerializeField] private CharacterController controller;
     [Header("Camera settings")]
     [SerializeField] public Transform cam; //-------------
@@ -14,6 +14,11 @@ public class ThirdPersonMovement : MonoBehaviour
     private bool isGrounded;
 
     [SerializeField] private Vector3 playerVelocity;
+
+    private void Start()
+    {
+        player = GetComponent<Player>();
+    }
 
     private void FixedUpdate()
     {
@@ -38,14 +43,14 @@ public class ThirdPersonMovement : MonoBehaviour
 
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;//-------------
 
-            float movementSpeed = player.speed;
+            float movementSpeed = player.playerStats.speed.value;
             if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
             {
-                movementSpeed = player.sprintSpeed;
+                movementSpeed = player.playerStats.sprintSpeed.value;
             }
-            else
+            else if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
             {
-                movementSpeed = player.crouchSpeed;
+                movementSpeed = player.playerStats.crouchSpeed.value;
             }
 
             controller.Move(moveDir * movementSpeed * Time.deltaTime);
@@ -59,7 +64,7 @@ public class ThirdPersonMovement : MonoBehaviour
         }
         if (Input.GetButtonDown("Jump") && controller.isGrounded)
         {
-            playerVelocity.y += Mathf.Sqrt(player.jumpHeight * -3.0f * gravity);
+            playerVelocity.y += Mathf.Sqrt(player.playerStats.jumpHeight.value * -3.0f * gravity);
         }
 
         playerVelocity.y += gravity * Time.deltaTime;
