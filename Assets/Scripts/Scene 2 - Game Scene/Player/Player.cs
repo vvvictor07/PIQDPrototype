@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        //LoadPlayerData();
+        LoadPlayerData();
     }
 
     public void LevelUp()
