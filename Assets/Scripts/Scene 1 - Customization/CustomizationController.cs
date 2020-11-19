@@ -4,7 +4,6 @@ using Assets.Scripts.Common.Services;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CustomizationController : MonoBehaviour
@@ -175,8 +174,6 @@ public class CustomizationController : MonoBehaviour
         };
 
         SaveSystem.SavePlayer(data);
-
-        SceneManager.LoadScene(sceneName: "Game Scene");
     }
 
     private void SetTexture(AppearancePartType type, int textureIndex)
