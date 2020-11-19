@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
 
     public Renderer characterRenderer;
 
-    void Start()
+    void Awake()
     {
         LoadPlayerData();
     }

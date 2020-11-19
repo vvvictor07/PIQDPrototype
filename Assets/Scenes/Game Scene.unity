@@ -4293,6 +4293,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e5f2dbdb544da544be2c6c969298b41, type: 3}
+--- !u!114 &618760213 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7734136809560240433, guid: 1806e3afe772cec48852263fae666e3c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1719640491}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34a9bf29ef1020a4e977eff4b9560760, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &623787055
 GameObject:
   m_ObjectHideFlags: 0
@@ -6626,6 +6638,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1015693036}
   m_CullTransparentMesh: 0
+--- !u!137 &1023766905 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1083023704097727327, guid: 1806e3afe772cec48852263fae666e3c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1719640491}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1028834309
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10792,12 +10810,12 @@ PrefabInstance:
     - target: {fileID: 7734136809451146340, guid: 1806e3afe772cec48852263fae666e3c,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.0018420737
+      value: -0.0018420817
       objectReference: {fileID: 0}
     - target: {fileID: 7734136809451146340, guid: 1806e3afe772cec48852263fae666e3c,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.007853946
+      value: -0.007853979
       objectReference: {fileID: 0}
     - target: {fileID: 7734136809451146340, guid: 1806e3afe772cec48852263fae666e3c,
         type: 3}
@@ -10807,7 +10825,7 @@ PrefabInstance:
     - target: {fileID: 7734136809451146340, guid: 1806e3afe772cec48852263fae666e3c,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.22833726
+      value: -0.22833727
       objectReference: {fileID: 0}
     - target: {fileID: 7734136809451146340, guid: 1806e3afe772cec48852263fae666e3c,
         type: 3}
@@ -10834,6 +10852,11 @@ PrefabInstance:
       propertyPath: staminaRegenCooldown
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7734136809560240433, guid: 1806e3afe772cec48852263fae666e3c,
+        type: 3}
+      propertyPath: characterRenderer
+      value: 
+      objectReference: {fileID: 1023766905}
     - target: {fileID: 7734136809560240434, guid: 1806e3afe772cec48852263fae666e3c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10899,6 +10922,11 @@ PrefabInstance:
       propertyPath: player.healthHearts
       value: 
       objectReference: {fileID: 1155232304}
+    - target: {fileID: 7734136809560240435, guid: 1806e3afe772cec48852263fae666e3c,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 618760213}
     - target: {fileID: 7734136809560240845, guid: 1806e3afe772cec48852263fae666e3c,
         type: 3}
       propertyPath: m_Name
