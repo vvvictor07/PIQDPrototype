@@ -4,15 +4,15 @@ using UnityEngine;
 
 public enum ItemType
 {
-    Food,
-    Weapon,
-    Apparel,
-    Crafting,
-    Ingredients,
-    Potions,
-    Scrolls,
-    Quest,
-    Money
+    Food = 1,
+    Weapon = 2,
+    Apparel = 3,
+    Crafting = 4,
+    Ingredients = 5,
+    Potions = 6,
+    Scrolls = 7,
+    Quest = 8,
+    Money = 9,
 }
 
 [System.Serializable]

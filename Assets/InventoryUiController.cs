@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Linq;
 using UnityEngine;
 
 public class InventoryUiController : MonoBehaviour
@@ -9,6 +8,8 @@ public class InventoryUiController : MonoBehaviour
 
     Inventory inventory;
     InventorySlot[] inventorySlots;
+
+    private ItemType? filter = null;
 
     // Start is called before the first frame update
     void Start()
@@ -33,16 +34,34 @@ public class InventoryUiController : MonoBehaviour
 
     void UpdateUi()
     {
-        for (int i = 0; i< inventorySlots.Length; i++)
+        var filteredItems = inventory.items
+            .Where(item => filter == null || item.type == filter)
+            .ToArray();
+
+        for (int i = 0; i < inventorySlots.Length; i++)
         {
-            if (i < inventory.items.Count)
+            if (i < filteredItems.Length)
             {
-                inventorySlots[i].SetItem(inventory.items[i]);
+                inventorySlots[i].SetItem(filteredItems[i]);
             }
             else
             {
                 inventorySlots[i].ClearSlot();
             }
         }
+    }
+
+    public void UpdateFilters(int itemTypeIndex)
+    {
+        if (itemTypeIndex == 0)
+        {
+            filter = null;
+        }
+        else
+        {
+            filter = (ItemType)itemTypeIndex;
+        }
+
+        UpdateUi();
     }
 }
