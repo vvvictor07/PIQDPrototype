@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 public enum InventorySortingType{
     None = 0,
@@ -27,6 +28,56 @@ public class Inventory : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log(items.Count);
+    }
+
+    public void Add(Item item)
+    {
+        if (item.Stackable() == false)
+        {
+            AddItem(item);
+            return;
+        }
+
+        var sameItems = items.Where(x => x.id == item.id).ToArray();
+
+        if (sameItems.Length == 0)
+        {
+            AddItem(item);
+            return;
+        }
+
+        var itemToAddStack = sameItems
+            .Where(x => x.currentAmount < x.maxStack)
+            .OrderByDescending(x => x.currentAmount)
+            .FirstOrDefault();
+
+        if (itemToAddStack != null)
+        {
+            itemToAddStack.currentAmount++;
+            OnInventoryUpdate();
+        }
+        else
+        {
+            AddItem(item);
+            return;
+        }
+    }
+
+    private void AddItem(Item item)
+    {
+        item.currentAmount++;
+        items.Add(item);
+        OnInventoryUpdate();
+    }
+
+    public void Remove(Item item)
+    {
+        item.currentAmount--;
+        if (item.currentAmount <= 0)
+        {
+            items.Remove(item);
+        }
+
+        OnInventoryUpdate();
     }
 }

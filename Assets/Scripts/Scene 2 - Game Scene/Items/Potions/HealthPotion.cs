@@ -15,6 +15,7 @@ namespace Assets.Scripts.Scene_2___Game_Scene.Items.Templates
 
         public override void Use()
         {
+            base.Use();
             Player.instance.Heal(healAmount);
         }
     }
