@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 835739783469545949}
   - component: {fileID: 7685493793926145874}
   m_Layer: 5
-  m_Name: Stat Prefab
+  m_Name: Customization Stat Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
