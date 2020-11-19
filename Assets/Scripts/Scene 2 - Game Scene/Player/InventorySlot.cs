@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class InventorySlot : MonoBehaviour
 {
     public Image icon;
+    public Text stackCounter;
 
     Item item;
 
@@ -14,6 +15,12 @@ public class InventorySlot : MonoBehaviour
         item = newItem;
         icon.sprite = item.icon;
         icon.enabled = true;
+
+        if (item.Stackable())
+        {
+            stackCounter.text = item.currentAmount.ToString();
+            stackCounter.gameObject.SetActive(true);
+        }
     }
 
     public void ClearSlot()
@@ -21,6 +28,7 @@ public class InventorySlot : MonoBehaviour
         item = null;
         icon.sprite = null;
         icon.enabled = false;
+        stackCounter.gameObject.SetActive(false);
     }
 
     public void UseItem()

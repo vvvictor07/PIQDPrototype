@@ -31,11 +31,10 @@ public abstract class Item : ScriptableObject
     public Sprite icon;
     public GameObject mesh;
 
-    //public int damage;
-    //public int armour;
-    //public int heal;
-
-    public abstract void Use();
+    public virtual void Use() 
+    {
+        Inventory.instance.Remove(this);
+    }
 
     public abstract string GetDescription();
 
