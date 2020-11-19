@@ -31,8 +31,11 @@ public class Player : MonoBehaviour
 
     public Renderer characterRenderer;
 
+    public static Player instance;
+
     void Awake()
     {
+        instance = this;
         LoadPlayerData();
     }
 
