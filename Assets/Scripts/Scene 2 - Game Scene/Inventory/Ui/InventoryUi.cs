@@ -1,24 +1,27 @@
 ﻿using System.Linq;
 using UnityEngine;
 
-public class InventoryUiController : MonoBehaviour
+public class InventoryUi : MonoBehaviour
 {
+    public InventoryItemInspectPanel itemInspectPanel;
     public GameObject inventoryWindow;
     public Transform itemsParent;
 
-    Inventory inventory;
-    InventorySlot[] inventorySlots;
+    Storage inventory;
+    ItemSlot[] inventorySlots;
 
     private ItemType? filter = null;
+
+    private Item selectedItem;
 
     // Start is called before the first frame update
     void Start()
     {
-        inventory = Inventory.instance;
+        inventory = Player.instance.inventory;
 
-        inventory.OnInventoryUpdate += UpdateUi;
+        inventory.OnStorageUpdate += UpdateUi;
 
-        inventorySlots = itemsParent.GetComponentsInChildren<InventorySlot>();
+        inventorySlots = itemsParent.GetComponentsInChildren<ItemSlot>();
 
         UpdateUi();
     }
@@ -32,7 +35,19 @@ public class InventoryUiController : MonoBehaviour
         }
     }
 
-    void UpdateUi()
+    public void SelectItem(int index)
+    {
+        var slot = inventorySlots[index];
+        SelectItem(slot.GetItem());
+    }
+
+    public void SelectItem(Item item)
+    {
+        selectedItem = item;
+        itemInspectPanel.SetItem(selectedItem);
+    }
+
+    private void UpdateUi()
     {
         var filteredItems = inventory.items
             .Where(item => filter == null || item.type == filter)
@@ -63,5 +78,16 @@ public class InventoryUiController : MonoBehaviour
         }
 
         UpdateUi();
+    }
+
+    public void MoveItemToActiveStorage()
+    {
+        if (selectedItem == null)
+        {
+            return;
+        }
+
+        inventory.TryTransferItem(selectedItem, StorageUi.instance.GetStorage());
+        SelectItem(null);
     }
 }

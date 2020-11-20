@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Common.Constants;
 using Assets.Scripts.Common.PlayerCommon;
 using Assets.Scripts.Common.Services;
+using UnityEditor;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -12,6 +13,9 @@ public class Player : MonoBehaviour
     [SerializeField] private float staminaRegenCooldown = 3f;
     public bool disableStaminaUsage;
     private float disableStaminaUsageTime;
+
+    public Storage inventory = new Storage();
+    public Item[] startingItems;
 
     public PlayerStats playerStats;
     public PlayerAppearance appearance;
@@ -37,6 +41,8 @@ public class Player : MonoBehaviour
     {
         instance = this;
         LoadPlayerData();
+
+        inventory.items.AddRange(startingItems);
     }
 
     public void LevelUp()

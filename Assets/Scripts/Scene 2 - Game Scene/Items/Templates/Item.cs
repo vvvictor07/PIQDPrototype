@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public enum ItemType
 {
@@ -33,7 +31,7 @@ public abstract class Item : ScriptableObject
 
     public virtual void Use() 
     {
-        Inventory.instance.Remove(this);
+        Player.instance.inventory.RemoveItem(this);
     }
 
     public abstract string GetDescription();
