@@ -47,7 +47,7 @@ public class InventoryUi : MonoBehaviour
         itemInspectPanel.SetItem(selectedItem);
     }
 
-    private void UpdateUi()
+    public void UpdateUi()
     {
         var filteredItems = inventory.items
             .Where(item => filter == null || item.type == filter)

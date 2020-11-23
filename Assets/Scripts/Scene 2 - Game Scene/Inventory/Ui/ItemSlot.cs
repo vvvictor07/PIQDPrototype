@@ -14,6 +14,15 @@ public class ItemSlot : MonoBehaviour
 
         var text = $"{item.name} ({item.currentAmount})";
 
+        if (item is Equipable && (item as Equipable).IsEquiped())
+        {
+            textElement.color = Color.green;
+        }
+        else
+        {
+            textElement.color = Color.black;
+        }
+
         textElement.text = text;
     }
 
