@@ -20,7 +20,8 @@ MonoBehaviour:
   currentAmount: 1
   cost: 0
   icon: {fileID: 0}
-  mesh: {fileID: 0}
+  onGroundPrefab: {fileID: 2137542148402501732, guid: f6da05d426f48484abbf52bce6b5499a,
+    type: 3}
   damage: 0
   equipedMesh: {fileID: -8176984191909879101, guid: bcdd7b0a86bed36459dc46f3a35a373e,
     type: 3}

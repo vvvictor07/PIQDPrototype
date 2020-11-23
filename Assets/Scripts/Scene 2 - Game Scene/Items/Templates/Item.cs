@@ -27,11 +27,27 @@ public abstract class Item : ScriptableObject
     public int cost = 0;
 
     public Sprite icon;
-    public GameObject mesh;
+    public GameObject onGroundPrefab;
 
     public virtual void Use() 
     {
         Player.instance.inventory.RemoveItem(this);
+    }
+
+    public void Drop()
+    {
+        var container = GameObject.FindGameObjectWithTag("ObjectsInMapContainer");
+
+        var itemOnGroundObject = Instantiate(onGroundPrefab, Player.instance.transform.position, Quaternion.identity, container.transform);
+
+        var itemOnGround = itemOnGroundObject.GetComponent<ItemOnGround>();
+
+        if (itemOnGround != null)
+        {
+            itemOnGround.item = this;
+        }
+
+        Player.instance.inventory.RemoveItemStack(this);
     }
 
     public abstract string GetAttributes();

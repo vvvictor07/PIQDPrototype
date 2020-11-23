@@ -43,4 +43,13 @@ public class InventoryItemInspectPanel : MonoBehaviour
             }
         }
     }
+
+    public void DropItem()
+    {
+        if (selectedItem != null)
+        {
+            selectedItem.Drop();
+            SetItem(null);
+        }
+    }
 }
