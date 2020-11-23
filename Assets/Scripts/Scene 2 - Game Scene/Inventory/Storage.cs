@@ -69,6 +69,19 @@ public class Storage
         OnStorageUpdate();
     }
 
+    public virtual void RemoveItemStack(Item item)
+    {
+        items.Remove(item);
+
+        if (item is Equipable)
+        {
+            var itemAsEquipable = item as Equipable;
+            itemAsEquipable.Unequip();
+        }
+
+        OnStorageUpdate();
+    }
+
     public virtual bool TryTransferItem(Item item, Storage anotherStorage)
     {
         var itemTransferred = anotherStorage.TryAddItem(item);
