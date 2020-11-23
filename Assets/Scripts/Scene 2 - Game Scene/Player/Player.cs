@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Common.Constants;
 using Assets.Scripts.Common.PlayerCommon;
 using Assets.Scripts.Common.Services;
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private float healthRegenCooldown = 5f;
     private bool disableHealthRegen;
+
     private float disableHealthRegenTime;
 
     [SerializeField] private float staminaRegenCooldown = 3f;

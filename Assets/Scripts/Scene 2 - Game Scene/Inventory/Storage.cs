@@ -60,6 +60,12 @@ public class Storage
             items.Remove(item);
         }
 
+        if (item is Equipable)
+        {
+            var itemAsEquipable = item as Equipable;
+            itemAsEquipable.Unequip();
+        }
+
         OnStorageUpdate();
     }
 
@@ -69,11 +75,24 @@ public class Storage
 
         if (itemTransferred)
         {
+            if (item is Equipable)
+            {
+                var itemAsEquipable = item as Equipable;
+                itemAsEquipable.Unequip();
+            }
+
             items.Remove(item);
+
             OnStorageUpdate();
+            anotherStorage.OnStorageUpdate();
         }
 
         return itemTransferred;
+    }
+
+    public void InvokeOnStorageUpdate()
+    {
+        OnStorageUpdate?.Invoke();
     }
 }
 

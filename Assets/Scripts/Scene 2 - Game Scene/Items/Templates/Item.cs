@@ -34,7 +34,7 @@ public abstract class Item : ScriptableObject
         Player.instance.inventory.RemoveItem(this);
     }
 
-    public abstract string GetDescription();
+    public abstract string GetAttributes();
 
     public bool Stackable()
     {
