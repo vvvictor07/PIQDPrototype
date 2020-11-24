@@ -18,6 +18,10 @@ public class ItemSlot : MonoBehaviour
         {
             textElement.color = Color.green;
         }
+        else if (item is Consumable && (item as Consumable).IsReadyToUse() == false)
+        {
+            textElement.color = Color.red;
+        }
         else
         {
             textElement.color = Color.black;
