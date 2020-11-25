@@ -52,6 +52,11 @@ public abstract class Item : ScriptableObject
 
     public abstract string GetAttributes();
 
+    public virtual int GetTotalCost()
+    {
+        return cost * currentAmount;
+    }
+
     public bool Stackable()
     {
         return maxStack > 1;

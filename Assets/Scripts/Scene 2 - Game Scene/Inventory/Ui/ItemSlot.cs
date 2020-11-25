@@ -12,7 +12,9 @@ public class ItemSlot : MonoBehaviour
     {
         item = newItem;
 
-        var text = $"{item.name} ({item.currentAmount})";
+        var cost = ShopUi.instance.GetShop().GetSellCostOfItem(item);
+
+        var text = $"[{cost}] {item.name} ({item.currentAmount})";
 
         if (item is Equipable && (item as Equipable).IsEquiped())
         {

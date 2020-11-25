@@ -24,6 +24,8 @@ public class Player : MonoBehaviour
     public Storage inventory = new Storage();
     public Item[] startingItems;
 
+    public int gold = 0;
+
     public PlayerStats playerStats;
     public PlayerAppearance appearance;
 

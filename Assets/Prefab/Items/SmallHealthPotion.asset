@@ -17,7 +17,7 @@ MonoBehaviour:
   description: Restrores a small amount of health
   type: 6
   maxStack: 5
-  currentAmount: 4
+  currentAmount: 2
   cost: 10
   icon: {fileID: 21300000, guid: 8f74e4f71b1e7f942ae09898602c3ff5, type: 3}
   onGroundPrefab: {fileID: 2137542148402501732, guid: f6da05d426f48484abbf52bce6b5499a,

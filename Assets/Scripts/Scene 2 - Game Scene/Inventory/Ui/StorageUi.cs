@@ -27,7 +27,7 @@ public class StorageUi : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             storageWindow.SetActive(!storageWindow.activeSelf);
         }

@@ -19,7 +19,12 @@ public class InventoryItemInspectPanel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    public void SetGold(int gold)
+    {
+        goldElement.text = $"GOLD: {gold}";
     }
 
     public void SetItem(Item newItem)
