@@ -5,12 +5,12 @@
 
     public int GetSellCostOfItem(Item item)
     {
-        return (int)(item.GetTotalCost() * sellCostCoefficent);
+        return (int)(item.cost * sellCostCoefficent);
     }
 
     public int GetBuyCostOfItem(Item item)
     {
-        return (int)(item.GetTotalCost() * buyCostCoefficent);
+        return (int)(item.cost * buyCostCoefficent);
     }
 
     public bool TryBuyItem(Item item)
@@ -20,7 +20,7 @@
             return false;
         }
 
-        var cost = (int)(item.GetTotalCost() * buyCostCoefficent);
+        var cost = GetBuyCostOfItem(item);
         var itemTransferred = TryTransferItem(item, Player.instance.inventory);
 
         if (itemTransferred)
@@ -35,7 +35,7 @@
 
     public bool TrySellItem(Item item)
     {
-        var cost = (int)(item.GetTotalCost() * sellCostCoefficent);
+        var cost = GetSellCostOfItem(item);
 
         var itemTransferred = Player.instance.inventory.TryTransferItem(item, this);
 

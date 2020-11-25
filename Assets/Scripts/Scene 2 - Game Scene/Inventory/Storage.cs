@@ -113,17 +113,20 @@ public class Storage
 
     public virtual bool TryTransferItem(Item item, Storage anotherStorage)
     {
-        var itemTransferred = anotherStorage.TryAddItem(item);
+        var itemToTransfer = Object.Instantiate(item);
+        itemToTransfer.currentAmount = 1;
+
+        var itemTransferred = anotherStorage.TryAddItem(itemToTransfer);
 
         if (itemTransferred)
         {
-            if (item is Equipable)
+            if (itemToTransfer is Equipable)
             {
-                var itemAsEquipable = item as Equipable;
+                var itemAsEquipable = itemToTransfer as Equipable;
                 itemAsEquipable.Unequip();
             }
 
-            items.Remove(item);
+            RemoveItem(item);
 
             OnStorageUpdate();
             anotherStorage.OnStorageUpdate();
