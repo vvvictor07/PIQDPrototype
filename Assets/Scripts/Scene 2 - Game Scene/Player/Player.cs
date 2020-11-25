@@ -1,17 +1,30 @@
 ﻿using Assets.Scripts.Common.Constants;
 using Assets.Scripts.Common.PlayerCommon;
 using Assets.Scripts.Common.Services;
+using System;
+using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] private float healthRegenCooldown = 5f;
     private bool disableHealthRegen;
+
     private float disableHealthRegenTime;
 
     [SerializeField] private float staminaRegenCooldown = 3f;
     public bool disableStaminaUsage;
     private float disableStaminaUsageTime;
+
+    [SerializeField] private float consumablesUsageCooldown = 3f;
+    public bool disableConsumablesUsage;
+    private float disableConsumablesUsageTime;
+
+    public Storage inventory = new Storage();
+    public Item[] startingItems;
+
+    public int gold = 0;
 
     public PlayerStats playerStats;
     public PlayerAppearance appearance;
@@ -31,9 +44,14 @@ public class Player : MonoBehaviour
 
     public Renderer characterRenderer;
 
+    public static Player instance;
+
     void Awake()
     {
+        instance = this;
         LoadPlayerData();
+
+        inventory.items.AddRange(startingItems.Select(item => Instantiate(item)));
     }
 
     public void LevelUp()
@@ -68,6 +86,7 @@ public class Player : MonoBehaviour
     {
         ProcessHealthRegen();
         ProcessStaminaRegen();
+        ProcessConsumablesCooldown();
     }
 
     public void DealDamage(float damage)
@@ -142,6 +161,21 @@ public class Player : MonoBehaviour
             mats[(int)part.partType].mainTexture = texture;
             characterRenderer.materials = mats;
         }
+    }
+
+    private void ProcessConsumablesCooldown()
+    {
+        if (disableConsumablesUsage && Time.time > disableConsumablesUsageTime + consumablesUsageCooldown)
+        {
+            disableConsumablesUsage = false;
+            inventory.InvokeOnStorageUpdate();
+        }
+    }
+
+    public void SetConsumablesOnCooldown()
+    {
+        disableConsumablesUsage = true;
+        disableConsumablesUsageTime = Time.time;
     }
 
     //temp level up button & deal damage button
