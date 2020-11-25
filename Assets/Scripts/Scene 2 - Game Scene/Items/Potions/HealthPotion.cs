@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "HealthPotion", menuName = "Items/Potions/Health Potion", order = 51)]
-public class HealthPotion : Item
+public class HealthPotion : Consumable
 {
     public int healAmount = 25;
 
@@ -11,9 +11,20 @@ public class HealthPotion : Item
         return description;
     }
 
+    public override bool IsReadyToUse()
+    {
+        return !Player.instance.disableConsumablesUsage;
+    }
+
     public override void Use()
     {
-        base.Use();
+        if (IsReadyToUse() == false)
+        {
+            return;
+        }
+
         Player.instance.Heal(healAmount);
+        Player.instance.SetConsumablesOnCooldown();
+        base.Use();
     }
 }

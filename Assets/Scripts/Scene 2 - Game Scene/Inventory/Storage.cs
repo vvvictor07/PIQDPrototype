@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 public class Storage
 {
@@ -23,19 +24,47 @@ public class Storage
             return TryAddItemToNewSlot(item);
         }
 
-        var itemToAddStack = sameItems
-            .Where(x => x.currentAmount < x.maxStack)
-            .OrderByDescending(x => x.currentAmount)
-            .FirstOrDefault();
-
-        if (itemToAddStack != null)
+        var res = TryAddItemToExistingSlot(sameItems, item);
+        if (res)
         {
-            itemToAddStack.currentAmount++;
-            OnStorageUpdate();
             return true;
         }
-        
+
         return TryAddItemToNewSlot(item);
+    }
+
+    private bool TryAddItemToExistingSlot(IEnumerable<Item> sameItems, Item item)
+    {
+        var stackableItems = sameItems
+                .Where(x => x.currentAmount < x.maxStack)
+                .OrderByDescending(x => x.currentAmount)
+                .ToArray();
+
+        if (stackableItems.Length == 0)
+        {
+            return false;
+        }
+
+        foreach (var itemToAddStack in stackableItems)
+        {
+            var sum = itemToAddStack.currentAmount + item.currentAmount;
+
+            itemToAddStack.currentAmount = Mathf.Clamp(sum, 0, itemToAddStack.maxStack);
+
+            item.currentAmount = sum - itemToAddStack.maxStack;
+            if (item.currentAmount <= 0)
+            {
+                break;
+            }
+        }
+
+        if (item.currentAmount > 0)
+        {
+            return false;
+        }
+
+        OnStorageUpdate();
+        return true;
     }
 
     private bool TryAddItemToNewSlot(Item item)

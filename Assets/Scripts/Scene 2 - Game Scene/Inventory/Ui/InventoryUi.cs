@@ -14,6 +14,13 @@ public class InventoryUi : MonoBehaviour
 
     private Item selectedItem;
 
+    public static InventoryUi instance;
+
+    void Awake()
+    {
+        instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -64,6 +71,8 @@ public class InventoryUi : MonoBehaviour
                 inventorySlots[i].ClearSlot();
             }
         }
+
+        itemInspectPanel.SetGold(Player.instance.gold);
     }
 
     public void UpdateFilters(int itemTypeIndex)
@@ -86,8 +95,16 @@ public class InventoryUi : MonoBehaviour
         {
             return;
         }
+        
+        if (ShopUi.instance.IsActive())
+        {
+            ShopUi.instance.GetShop().TrySellItem(selectedItem);
+        }
+        else
+        {
+            inventory.TryTransferItem(selectedItem, StorageUi.instance.GetStorage());
+        }
 
-        inventory.TryTransferItem(selectedItem, StorageUi.instance.GetStorage());
         SelectItem(null);
     }
 }
