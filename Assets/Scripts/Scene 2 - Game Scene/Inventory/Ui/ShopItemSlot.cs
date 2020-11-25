@@ -13,7 +13,7 @@ public class ShopItemSlot : MonoBehaviour
 
         var cost = ShopUi.instance.GetShop().GetBuyCostOfItem(item);
 
-        var text = $"[{cost}] {item.name} ({item.currentAmount})";
+        var text = $"[{cost}x1] {item.name} ({item.currentAmount})";
 
         textElement.text = text;
     }
