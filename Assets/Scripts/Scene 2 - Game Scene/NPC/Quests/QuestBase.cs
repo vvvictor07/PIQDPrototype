@@ -4,12 +4,15 @@ using UnityEngine;
 public abstract class QuestBase : ScriptableObject
 {
     public string title;
+
     [TextArea(3, 240)]
     public string description;
 
     public QuestReward reward;
-
+    
     public QuestStatus status = QuestStatus.None;
+
+    public int minLevelToAccept = 0;
 
     public abstract bool AreRequirementsReached();
 
@@ -57,6 +60,11 @@ public abstract class QuestBase : ScriptableObject
     {
         status = QuestStatus.Canceled;
         Player.instance.quests.Remove(this);
+    }
+
+    public virtual bool CanBeAccepted()
+    {
+        return Player.instance.playerStats.level >= minLevelToAccept;
     }
 }
 
