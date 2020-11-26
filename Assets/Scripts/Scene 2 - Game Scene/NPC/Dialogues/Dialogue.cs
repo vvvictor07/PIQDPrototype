@@ -20,4 +20,6 @@ public class Dialogue
     public string[] sentences;
 
     public DialogueType type;
+
+    public QuestBase quest;
 }

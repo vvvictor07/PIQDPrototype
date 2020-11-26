@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 public class DialogueController : MonoBehaviour
 {
@@ -9,6 +11,8 @@ public class DialogueController : MonoBehaviour
     private int currentSentenceIndex;
 
     private bool endOfDialogueReached;
+
+    private List<QuestBase> activeQuests = new List<QuestBase>();
 
     public bool active;
 
@@ -50,6 +54,7 @@ public class DialogueController : MonoBehaviour
         if (other.CompareTag(Player.instance.tag))
         {
             inRange = true;
+            ReturnToRoot();
         }
     }
 
@@ -59,6 +64,7 @@ public class DialogueController : MonoBehaviour
         {
             inRange = false;
             active = false;
+            ReturnToRoot();
         }
     }
 
@@ -71,7 +77,38 @@ public class DialogueController : MonoBehaviour
 
         GUI.Box(new Rect(610, 510, 500, 300), name);
 
-        GUI.Label(new Rect(620, 540, 180, 20), currentDialogue.sentences[currentSentenceIndex]);
+        var completedQuest = activeQuests.FirstOrDefault(x => x.status == QuestStatus.RequirementsReached);
+
+        if (completedQuest != null)
+        {
+            GUI.Label(new Rect(620, 540, 450, 20), completedQuest.name + " completed!");
+
+            if (GUI.Button(new Rect(620, 580, 450, 20), "Claim rewards"))
+            {
+                completedQuest.Complete();
+                ReturnToRoot();
+            }
+
+            return;
+        }
+
+        if (currentDialogue.quest != null)
+        {
+            if (GUI.Button(new Rect(620, 580, 450, 20), "Deal <Accept>"))
+            {
+                var newQuest = Instantiate(currentDialogue.quest);
+                activeQuests.Add(newQuest);
+                newQuest.Accept();
+            }
+
+            if (GUI.Button(new Rect(620, 620, 450, 20), "I got better things to do <Decline>"))
+            {
+                ReturnToRoot();
+            }
+            return;
+        }
+
+        GUI.Label(new Rect(620, 540, 450, 20), currentDialogue.sentences[currentSentenceIndex]);
 
         if (endOfDialogueReached)
         {
@@ -81,7 +118,15 @@ public class DialogueController : MonoBehaviour
             {
                 foreach (var dialogue in currentDialogue.variants)
                 {
-                    if (GUI.Button(new Rect(620, 540 + 40 * i, 180, 20), dialogue.playerQuote))
+                    if (dialogue.quest != null 
+                        && (dialogue.quest.status == QuestStatus.Completed 
+                        || dialogue.quest.status == QuestStatus.RequirementsReached
+                        || dialogue.quest.status == QuestStatus.Accepted))
+                    {
+                        continue;
+                    }
+
+                    if (GUI.Button(new Rect(620, 540 + 40 * i, 450, 20), dialogue.playerQuote))
                     {
                         SelectNextDialogue(dialogue);
                     }
@@ -91,7 +136,7 @@ public class DialogueController : MonoBehaviour
             }
             else
             {
-                if (GUI.Button(new Rect(620, 580, 180, 20), "Return"))
+                if (GUI.Button(new Rect(620, 580, 450, 20), "Return"))
                 {
                     ReturnToRoot();
                 }
@@ -99,7 +144,7 @@ public class DialogueController : MonoBehaviour
 
             if (rootDialogue == currentDialogue)
             {
-                if (GUI.Button(new Rect(620, 540 + 40 * i, 180, 20), "Bye"))
+                if (GUI.Button(new Rect(620, 540 + 40 * i, 450, 20), "Bye"))
                 {
                     active = false;
                 }
@@ -107,7 +152,7 @@ public class DialogueController : MonoBehaviour
         }
         else
         {
-            if (GUI.Button(new Rect(620, 580, 180, 20), "Continue"))
+            if (GUI.Button(new Rect(620, 580, 450, 20), "Continue"))
             {
                 NextSentence();
             }

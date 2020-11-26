@@ -25,7 +25,7 @@
 
         if (itemTransferred)
         {
-            Player.instance.gold -= cost;
+            Player.instance.ChangeGold(-cost);
             InventoryUi.instance.UpdateUi();
             return true;
         }
@@ -41,7 +41,7 @@
 
         if (itemTransferred)
         {
-            Player.instance.gold += cost;
+            Player.instance.ChangeGold(cost);
             InventoryUi.instance.UpdateUi();
             return true;
         }

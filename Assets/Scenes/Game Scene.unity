@@ -592,6 +592,7 @@ MonoBehaviour:
       - Something here
       - Something there
       type: 0
+      quest: {fileID: 0}
     - playerQuote: Tell me a joke
       variants:
       - playerQuote: Who's there?
@@ -601,21 +602,26 @@ MonoBehaviour:
           sentences:
           - Me neither
           type: 0
+          quest: {fileID: 0}
         - playerQuote: Good joke
           variants: []
           sentences:
           - Yeah
           type: 0
+          quest: {fileID: 0}
         sentences:
         - That's me.
         - The end.
         type: 0
+        quest: {fileID: 0}
       sentences:
       - Knock-knock.
       type: 0
+      quest: {fileID: 0}
     sentences:
     - Hello stranger
     type: 0
+    quest: {fileID: 0}
   active: 0
 --- !u!135 &68911460
 SphereCollider:
@@ -3894,7 +3900,7 @@ PrefabInstance:
     - target: {fileID: 6777835157442220569, guid: b85fb94238c264b4b8b95f642ea3ee49,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.0022918019
+      value: -0.0022918293
       objectReference: {fileID: 0}
     - target: {fileID: 6777835157442220569, guid: b85fb94238c264b4b8b95f642ea3ee49,
         type: 3}
@@ -3909,7 +3915,7 @@ PrefabInstance:
     - target: {fileID: 6777835157442220569, guid: b85fb94238c264b4b8b95f642ea3ee49,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.0077346535
+      value: -0.0077347467
       objectReference: {fileID: 0}
     - target: {fileID: 6777835157442220569, guid: b85fb94238c264b4b8b95f642ea3ee49,
         type: 3}
@@ -5512,6 +5518,8 @@ GameObject:
   - component: {fileID: 1182273277}
   - component: {fileID: 1182273276}
   - component: {fileID: 1182273275}
+  - component: {fileID: 1182273281}
+  - component: {fileID: 1182273280}
   m_Layer: 0
   m_Name: Quest NPC
   m_TagString: Untagged
@@ -5639,6 +5647,44 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1182273280
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1182273274}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.72
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1182273281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1182273274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad82e92ad1852f04d896039ae733a1ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rootDialogue:
+    playerQuote: 
+    variants:
+    - playerQuote: I am listening
+      variants: []
+      sentences: []
+      type: 0
+      quest: {fileID: 11400000, guid: cc7632311bbe6e648bcb2661e494a5e2, type: 2}
+    sentences:
+    - Hey buddy. It would be nice if you brought me a Health Potion.
+    type: 0
+    quest: {fileID: 0}
+  active: 0
 --- !u!1 &1184994618
 GameObject:
   m_ObjectHideFlags: 0
@@ -7614,7 +7660,7 @@ PrefabInstance:
     - target: {fileID: 7734136808195737490, guid: 1806e3afe772cec48852263fae666e3c,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.002291808
+      value: -0.0022918219
       objectReference: {fileID: 0}
     - target: {fileID: 7734136808195737490, guid: 1806e3afe772cec48852263fae666e3c,
         type: 3}
@@ -7629,7 +7675,7 @@ PrefabInstance:
     - target: {fileID: 7734136808195737490, guid: 1806e3afe772cec48852263fae666e3c,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.0077346764
+      value: -0.007734723
       objectReference: {fileID: 0}
     - target: {fileID: 7734136808195737490, guid: 1806e3afe772cec48852263fae666e3c,
         type: 3}
@@ -7704,12 +7750,12 @@ PrefabInstance:
     - target: {fileID: 7734136809451146340, guid: 1806e3afe772cec48852263fae666e3c,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.0018420817
+      value: -0.0018420737
       objectReference: {fileID: 0}
     - target: {fileID: 7734136809451146340, guid: 1806e3afe772cec48852263fae666e3c,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.007853979
+      value: -0.007853946
       objectReference: {fileID: 0}
     - target: {fileID: 7734136809451146340, guid: 1806e3afe772cec48852263fae666e3c,
         type: 3}
@@ -7719,7 +7765,7 @@ PrefabInstance:
     - target: {fileID: 7734136809451146340, guid: 1806e3afe772cec48852263fae666e3c,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.22833727
+      value: -0.22833726
       objectReference: {fileID: 0}
     - target: {fileID: 7734136809451146340, guid: 1806e3afe772cec48852263fae666e3c,
         type: 3}
@@ -7899,6 +7945,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meshFilter: {fileID: 1719640493}
   meshRenderer: {fileID: 1719640492}
+--- !u!114 &1719640499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1719640494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83863da11d6399c4bb79d60c4eecb2e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1748940761
 GameObject:
   m_ObjectHideFlags: 0
