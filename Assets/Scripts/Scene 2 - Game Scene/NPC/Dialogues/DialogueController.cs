@@ -94,14 +94,20 @@ public class DialogueController : MonoBehaviour
 
         if (currentDialogue.quest != null)
         {
-            if (GUI.Button(new Rect(620, 580, 450, 20), "Deal <Accept>"))
+            GUI.Label(new Rect(620, 540, 450, 20), currentDialogue.quest.description);
+
+            var rewardText = $"Reward: {currentDialogue.quest.reward.gold} gold, {currentDialogue.quest.reward.exp} exp";
+
+            GUI.Label(new Rect(620, 580, 450, 20), rewardText);
+
+            if (GUI.Button(new Rect(620, 620, 450, 20), "Deal <Accept>"))
             {
                 var newQuest = Instantiate(currentDialogue.quest);
                 activeQuests.Add(newQuest);
                 newQuest.Accept();
             }
 
-            if (GUI.Button(new Rect(620, 620, 450, 20), "I got better things to do <Decline>"))
+            if (GUI.Button(new Rect(620, 660, 450, 20), "I got better things to do <Decline>"))
             {
                 ReturnToRoot();
             }
