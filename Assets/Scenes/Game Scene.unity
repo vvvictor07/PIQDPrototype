@@ -441,6 +441,8 @@ GameObject:
   - component: {fileID: 68911456}
   - component: {fileID: 68911455}
   - component: {fileID: 68911454}
+  - component: {fileID: 68911459}
+  - component: {fileID: 68911460}
   m_Layer: 0
   m_Name: Normal NPC
   m_TagString: Untagged
@@ -568,6 +570,66 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &68911459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 68911453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad82e92ad1852f04d896039ae733a1ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rootDialogue:
+    playerQuote: 
+    variants:
+    - playerQuote: What's up?
+      variants: []
+      sentences:
+      - You know
+      - Something here
+      - Something there
+      type: 0
+    - playerQuote: Tell me a joke
+      variants:
+      - playerQuote: Who's there?
+        variants:
+        - playerQuote: Don't get it
+          variants: []
+          sentences:
+          - Me neither
+          type: 0
+        - playerQuote: Good joke
+          variants: []
+          sentences:
+          - Yeah
+          type: 0
+        sentences:
+        - That's me.
+        - The end.
+        type: 0
+      sentences:
+      - Knock-knock.
+      type: 0
+    sentences:
+    - Hello stranger
+    type: 0
+  active: 0
+--- !u!135 &68911460
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 68911453}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2.02
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &79574329 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4718566220974350, guid: 71a03e255850ab443bb18540df126e02,
@@ -7642,12 +7704,12 @@ PrefabInstance:
     - target: {fileID: 7734136809451146340, guid: 1806e3afe772cec48852263fae666e3c,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.0018420737
+      value: -0.0018420817
       objectReference: {fileID: 0}
     - target: {fileID: 7734136809451146340, guid: 1806e3afe772cec48852263fae666e3c,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.007853946
+      value: -0.007853979
       objectReference: {fileID: 0}
     - target: {fileID: 7734136809451146340, guid: 1806e3afe772cec48852263fae666e3c,
         type: 3}
@@ -7657,7 +7719,7 @@ PrefabInstance:
     - target: {fileID: 7734136809451146340, guid: 1806e3afe772cec48852263fae666e3c,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.22833726
+      value: -0.22833727
       objectReference: {fileID: 0}
     - target: {fileID: 7734136809451146340, guid: 1806e3afe772cec48852263fae666e3c,
         type: 3}
