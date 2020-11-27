@@ -44,7 +44,7 @@ public class GetItemQuest : QuestBase
         {
             foreach (var itemToFind in itemsToFind)
             {
-                Player.instance.inventory.RemoveItem(itemToFind.item);
+                Player.instance.inventory.RemoveItem(itemToFind.item, itemToFind.requiredAmount);
             }
         }
 
