@@ -98,6 +98,35 @@ public class Storage
         OnStorageUpdate();
     }
 
+    public virtual void RemoveItem(Item item, int amountToRemove)
+    {
+        var sameItems = items
+            .Where(x => x.id == item.id)
+            .OrderBy(x => x.currentAmount)
+            .ToArray();
+
+        foreach (var sameItem in sameItems)
+        {
+            sameItem.currentAmount -= amountToRemove;
+
+            if (sameItem.currentAmount > 0)
+            {
+                break;
+            }
+
+            if (sameItem.currentAmount == 0)
+            {
+                RemoveItemStack(sameItem);
+                break;
+            }
+
+            amountToRemove = Mathf.Abs(sameItem.currentAmount);
+            RemoveItemStack(sameItem);
+        }
+
+        OnStorageUpdate();
+    }
+
     public virtual void RemoveItemStack(Item item)
     {
         items.Remove(item);

@@ -2,6 +2,7 @@
 using Assets.Scripts.Common.PlayerCommon;
 using Assets.Scripts.Common.Services;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -25,6 +26,8 @@ public class Player : MonoBehaviour
     public Item[] startingItems;
 
     public int gold = 0;
+
+    public List<QuestBase> quests;
 
     public PlayerStats playerStats;
     public PlayerAppearance appearance;
@@ -176,6 +179,12 @@ public class Player : MonoBehaviour
     {
         disableConsumablesUsage = true;
         disableConsumablesUsageTime = Time.time;
+    }
+
+    public void ChangeGold(int amount)
+    {
+        gold += amount;
+        inventory.InvokeOnStorageUpdate();
     }
 
     //temp level up button & deal damage button
